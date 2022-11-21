@@ -106,9 +106,9 @@ class Morpion:
         command = input("First to play ?\n")
         match command:
             case "Y" | "O" | "Yes" | "Yeah" | "Why not" | "Oui":
-                human_player = 1
+                human_player = Player.O
             case _:
-                human_player = -1
+                human_player = Player.X
 
         while not win:
             # Etape 1 : demander la commande à l'utilisateur
@@ -146,30 +146,30 @@ class Morpion:
 
     def __repr__(self) -> str:
         temp = "ABC"
-        l = "   1   2   3"
+        repr_str = "   1   2   3"
         count1 = 0
         for row in self.state:
-            l += "\n"
-            l += temp[count1] + " "
+            repr_str += "\n"
+            repr_str += temp[count1] + " "
             count2 = 0
             for col in row:
                 match col:
                     case 0:
-                        l += "   "
+                        repr_str += "   "
                     case 1:
-                        l += " O "
+                        repr_str += " O "
                     case -1:
-                        l += " X "
+                        repr_str += " X "
                     case _:
                         raise ValueError
 
                 if count2 != 2:
                     count2 += 1
-                    l += "|"
+                    repr_str += "|"
             if count1 != 2:
                 count1 += 1
-                l += "\n  -----------"
-        return l
+                repr_str += "\n  -----------"
+        return repr_str
 
     def __call__(self):
         self.play_loop()
