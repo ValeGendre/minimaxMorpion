@@ -33,7 +33,7 @@ class Morpion:
     def update_hash(self, move):
         "Update the string that represent the current state"
         row_id, col_id = move
-        self.state_hash += "ABC"[row_id] + str(col_id)
+        self.state_hash += "ABC"[row_id] + str(col_id + 1)
 
     def winning_condition(self):
         "Test si la partie est terminée. Renvoie un couple bool,"
