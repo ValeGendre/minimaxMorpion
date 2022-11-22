@@ -46,22 +46,29 @@ class MinMaxTree:
                 if value == 0:
                     new_state = deepcopy(self.state)
                     new_state[row, col] = self.player
+                    # TODO : Ajouter le fils à la liste des fils
                     self.next.append(
-                        MinMaxTree(new_state, (row, col), -self.player, self.hash)
+                        ...
                     )
 
     def update_value(self):
         "Update la valeur dans le noeud"
         self.best_move = (0, 0)
-        func = max
-        best_value = -2
-        if self.player == 1:
-            func = min
-            best_value = 2
+
+        # fonction et valeur par defaut
+        func = ...
+        best_value = ...
+
+        # autre joueur 
+        if self.player == ...:
+            func = ...
+            best_value = ...
+
+        # parcourir les fils et trouver la valeur du noeud
         for son in self.next:
-            if best_value != func(best_value, son.value):
-                self.best_move = son.move
-                best_value = func(best_value, son.value)
+            if ...:
+                self.best_move = ...
+                best_value = func(best_value, ...)
         self.value = best_value
 
     def create_dict(self, base_dict=None):

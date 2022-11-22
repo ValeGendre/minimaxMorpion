@@ -29,6 +29,36 @@ class Morpion:
         else:
             self.best_moves = None
         self.state_hash = ""
+    
+    def __repr__(self) -> str:
+        temp = "ABC"
+        repr_str = "   1   2   3"
+        count1 = 0
+        for row in self.state:
+            repr_str += "\n"
+            repr_str += temp[count1] + " "
+            count2 = 0
+            for col in row:
+                match col:
+                    case 0:
+                        repr_str += "   "
+                    case 1:
+                        repr_str += " O "
+                    case -1:
+                        repr_str += " X "
+                    case _:
+                        raise ValueError
+
+                if count2 != 2:
+                    count2 += 1
+                    repr_str += "|"
+            if count1 != 2:
+                count1 += 1
+                repr_str += "\n  -----------"
+        return repr_str
+
+    def __call__(self):
+        self.play_loop()
 
     def update_hash(self, move):
         "Update the string that represent the current state"
@@ -102,77 +132,46 @@ class Morpion:
         # Initilisation
         self.state = numpy.zeros((3, 3))
         temp = "ABC"
-        win, player = self.winning_condition()
-        command = input("First to play ?\n")
-        match command:
-            case "Y" | "O" | "Yes" | "Yeah" | "Why not" | "Oui":
-                human_player = Player.O
-            case _:
-                human_player = Player.X
+        # Initilisation des variables 
+        win, player = ...
 
         while not win:
+            # Etape 0 : afficher l'état du jeu
+
+            # TODO
+
             # Etape 1 : demander la commande à l'utilisateur
-            command = self.valid_play(
-                temp[self.best_moves[self.state_hash][0]]
-                + str(self.best_moves[self.state_hash][1] + 1)
-            )
-            if human_player == self.player_id:
-                print("\n")
-                print(self)
-                command = self.valid_play(
-                    input(
-                        f"Player {'O' if self.player_id==Player.O else 'X'} desired move ?\n"
-                    )
-                )
-            while not command:
-                command = self.valid_play(input("\nInvalid move, try again :\n"))
-            row, col = command
-            self.update_hash(move=(row, col))
-            self.state[row, col] = self.player_id
-            win, player = self.winning_condition()
-            self.player_id *= -1
+            command = ... 
+            # Etape 1.1 : valider l'entrée 
+            valid = ...
+            
+            # Etape 1.2 : Redemander l'entrée si elle est invalide 
+            while not valid:
+                command = ...
+                valid = ...
+            
+            # Etape 2 : Mettre à jour notre état de jeu
+            row, col = ...
+            self.update_hash(...)
+            self.state[...] = ...
 
-        print("\n")
-        print(self)
-        if player == 0:
-            print("Draw !")
+            # Etape 3 : Vérifier la terminaison du jeu
+            win, player = ...
+
+            # Etape 4 : Demander à un autre joeur de jouer
+            self.player_id = ...
+
+        # Etape 5 : Terminer le jeu
+        if player == Player.NULL:
+            ...
         else:
-            print(f"Player {'O' if player==1 else 'X'} wins !")
+            ...
 
+        # Etape 6 : Rejouer ?
         command = input("Play again ?\n")
-        match command:
-            case "Y" | "O" | "Yes" | "Yeah" | "Why not" | "Oui":
-                self.play_loop()
+        ...
 
-    def __repr__(self) -> str:
-        temp = "ABC"
-        repr_str = "   1   2   3"
-        count1 = 0
-        for row in self.state:
-            repr_str += "\n"
-            repr_str += temp[count1] + " "
-            count2 = 0
-            for col in row:
-                match col:
-                    case 0:
-                        repr_str += "   "
-                    case 1:
-                        repr_str += " O "
-                    case -1:
-                        repr_str += " X "
-                    case _:
-                        raise ValueError
-
-                if count2 != 2:
-                    count2 += 1
-                    repr_str += "|"
-            if count1 != 2:
-                count1 += 1
-                repr_str += "\n  -----------"
-        return repr_str
-
-    def __call__(self):
-        self.play_loop()
+    
 
 
 if __name__ == "__main__":
